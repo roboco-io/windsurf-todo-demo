@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windsurf Todo Demo - UI Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+        }
+
+        /* Todo Input */
+        .todo-input-section {
+            margin-bottom: 32px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: #f8f9fa;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: #FF6B35;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .todo-input::placeholder {
+            color: #adb5bd;
+        }
+
+        .add-button {
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Todo List */
+        .todo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            transition: all 0.2s ease;
+        }
+
+        .todo-item:hover {
+            background: white;
+            border-color: #FF6B35;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .todo-item.completed {
+            background: #e8f5e8;
+            border-color: #28a745;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            margin-right: 16px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .todo-checkbox.checked {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .todo-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            color: #212529;
+            transition: all 0.2s ease;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        .todo-meta {
+            font-size: 12px;
+            color: #6c757d;
+            margin-left: 12px;
+        }
+
+        .delete-button {
+            padding: 8px 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 12px;
+        }
+
+        .delete-button:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #6c757d;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .empty-subtext {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .todo-input {
+                width: 100%;
+            }
+
+            .add-button {
+                width: 100%;
+            }
+
+            .stats {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 Windsurf Todo</h1>
+            <div class="subtitle">AI 기반 바이브 코딩 데모</div>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Todo Input -->
+            <div class="todo-input-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="todo-input" 
+                        placeholder="새로운 할일을 입력하세요..."
+                        value=""
+                    >
+                    <button class="add-button">추가</button>
+                </div>
+            </div>
+
+            <!-- Todo List -->
+            <div class="todo-list">
+                <!-- Completed Todo -->
+                <div class="todo-item completed">
+                    <div class="todo-checkbox checked"></div>
+                    <div class="todo-text">React 프로젝트 초기 설정</div>
+                    <div class="todo-meta">2분 전</div>
+                    <button class="delete-button">삭제</button>
+                </div>
+
+                <!-- Pending Todo -->
+                <div class="todo-item">
+                    <div class="todo-checkbox"></div>
+                    <div class="todo-text">Zustand 상태 관리 구현</div>
+                    <div class="todo-meta">5분 전</div>
+                    <button class="delete-button">삭제</button>
+                </div>
+
+                <!-- Completed Todo -->
+                <div class="todo-item completed">
+                    <div class="todo-checkbox checked"></div>
+                    <div class="todo-text">Mantine UI 컴포넌트 설치</div>
+                    <div class="todo-meta">8분 전</div>
+                    <button class="delete-button">삭제</button>
+                </div>
+
+                <!-- Pending Todo -->
+                <div class="todo-item">
+                    <div class="todo-checkbox"></div>
+                    <div class="todo-text">Todo CRUD 기능 구현</div>
+                    <div class="todo-meta">10분 전</div>
+                    <button class="delete-button">삭제</button>
+                </div>
+
+                <!-- Pending Todo -->
+                <div class="todo-item">
+                    <div class="todo-checkbox"></div>
+                    <div class="todo-text">반응형 디자인 적용</div>
+                    <div class="todo-meta">12분 전</div>
+                    <button class="delete-button">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 간단한 인터랙션 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            // 체크박스 클릭 이벤트
+            document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const todoItem = this.closest('.todo-item');
+                    this.classList.toggle('checked');
+                    todoItem.classList.toggle('completed');
+                });
+            });
+
+            // 입력 필드 엔터 키 이벤트
+            const todoInput = document.querySelector('.todo-input');
+            todoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const value = this.value.trim();
+                    if (value) {
+                        // 실제 구현에서는 여기서 새 todo를 추가
+                        console.log('새 할일 추가:', value);
+                        this.value = '';
+                    }
+                }
+            });
+
+            // 추가 버튼 클릭 이벤트
+            document.querySelector('.add-button').addEventListener('click', function() {
+                const todoInput = document.querySelector('.todo-input');
+                const value = todoInput.value.trim();
+                if (value) {
+                    console.log('새 할일 추가:', value);
+                    todoInput.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
