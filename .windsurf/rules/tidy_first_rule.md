@@ -1,3 +1,7 @@
+---
+trigger: manual
+---
+
 # Windsurf Todo Demo - 코드 품질 규칙
 
 > Kent Beck의 BPlusTree3 코드 품질 표준을 React + TypeScript 환경에 맞게 적용
@@ -475,84 +479,4 @@ export class TodoError extends Error {
 - [ ] 에러 케이스 문서화
 - [ ] 사용 예시 포함
 
----
 
-## 📚 문서화 표준
-
-### API 문서화
-```typescript
-/**
- * Todo 항목을 안전하게 추가합니다.
- * 
- * @param title - Todo 제목 (빈 문자열 불가)
- * @returns 성공 시 생성된 Todo, 실패 시 에러 정보
- * 
- * @example
- * ```typescript
- * const result = await todoService.addTodo("새로운 할일");
- * if (result.success) {
- *   console.log('Todo 생성됨:', result.data.id);
- * } else {
- *   console.error('생성 실패:', result.error.message);
- * }
- * ```
- * 
- * @throws Never throws - all errors returned via Result type
- */
-async addTodo(title: string): Promise<Result<Todo, TodoError>> {
-  // 구현
-}
-```
-
-### 에러 문서화
-```typescript
-/**
- * Todo 관련 에러를 나타내는 클래스
- * 
- * @example
- * ```typescript
- * try {
- *   const result = await todoService.addTodo("");
- *   if (!result.success) {
- *     switch (result.error.type) {
- *       case TodoErrorType.INVALID_TITLE:
- *         showValidationError(result.error.message);
- *         break;
- *       case TodoErrorType.STORAGE_ERROR:
- *         showStorageError(result.error.message);
- *         break;
- *     }
- *   }
- * }
- * ```
- */
-export class TodoError extends Error {
-  // 구현
-}
-```
-
----
-
-## 🎯 30분 라이브 코딩 적용 가이드
-
-### Phase 1 (5분) - 프로젝트 설정
-- [ ] TypeScript strict 모드 활성화
-- [ ] ESLint 규칙 설정
-- [ ] 테스트 프레임워크 설정
-- [ ] 기본 타입 정의
-
-### Phase 2 (20분) - 핵심 구현
-- [ ] Result 타입 패턴 적용
-- [ ] 테스트 우선 개발
-- [ ] 에러 처리 일관성 유지
-- [ ] 불변성 보장
-
-### Phase 3 (5분) - 품질 검증
-- [ ] 테스트 실행 및 커버리지 확인
-- [ ] 정적 분석 도구 실행
-- [ ] 성능 간단 검증
-- [ ] 문서화 완성
-
----
-
-*이 규칙들은 Kent Beck의 품질 철학을 React + TypeScript 환경에 맞게 적용한 것으로, 30분 라이브 코딩에서도 실용적으로 사용할 수 있도록 최적화되었습니다.*
